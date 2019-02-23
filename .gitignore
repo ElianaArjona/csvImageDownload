@@ -61,4 +61,6 @@ typings/
 .next
 
 #images file
-images/*
+images/*.jpg
+images/*.png
+images/*.svg

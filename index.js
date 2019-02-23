@@ -11,6 +11,8 @@ const asyncRead = util.promisify(fs.readFile),
     //Variable
 const filename = './result.csv';
 
+fs.mkdirSync('images')
+
 async function parser(filename = ''){
   // Read file and parse.
   // TODO: improve with the stream API.
