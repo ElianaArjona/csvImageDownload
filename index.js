@@ -9,7 +9,7 @@ const asyncRead = util.promisify(fs.readFile),
       asyncParser = util.promisify(csvParser);
 
     //Variable
-const filename = './dump.csv';
+const filename = './result.csv';
 
 async function parser(filename = ''){
   // Read file and parse.
@@ -18,8 +18,8 @@ async function parser(filename = ''){
   let result = await asyncParser(file, {delimiter: ',', columns: true})
   // for each row that contain the url image
   result.map( async function(image){
-    image['image_url'] = image.Featured
-    //console.log(image.image_url)
+    image['image_url'] = image.guid__rendered
+    console.log(image.image_url)
     let finalResult = await pusher(image)
     console.log(finalResult)
     download(finalResult.url , __dirname + '/images/'+ finalResult.name, function(){
