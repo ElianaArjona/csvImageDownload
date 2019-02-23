@@ -1,0 +1,14 @@
+{
+    "name": "csvImagenDownload",
+    "description": "Simple script to download image mapping a csv",
+    "author": "Efrain Lay C",
+    "version": "0.0.1",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js"
+    },
+    "dependencies": {
+        "csv-parse": "^4.3.3",
+        "request": "^2.88.0"
+    }
+}
