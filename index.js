@@ -11,7 +11,6 @@ const asyncRead = util.promisify(fs.readFile),
     //Variable
 const filename = './result.csv';
 
-fs.mkdirSync('images')
 
 async function parser(filename = ''){
   // Read file and parse.
@@ -20,11 +19,11 @@ async function parser(filename = ''){
   let result = await asyncParser(file, {delimiter: ',', columns: true})
   // for each row that contain the url image
   result.map( async function(image){
-    image['image_url'] = image.guid__rendered
+    image['image_url'] = image.archivo_foto
     console.log(image.image_url)
     let finalResult = await pusher(image)
     console.log(finalResult)
-    download(finalResult.url , __dirname + '/images/'+ finalResult.name, function(){
+    download(finalResult.url +'.jpg' , __dirname + '/images/'+ finalResult.name +'.jpg', function(){
       console.log("done")
     })
     return finalResult
@@ -42,13 +41,13 @@ async function pusher(imageObject){
 
 async function download(uri, filename, callback){
   await request.head(uri, async function(err, res, body){
-    if(res.headers['content-type']){
+    if(res.headers['content-type'] === 'image/jpeg' && res.headers['content-type'] != 'text/html' ){
       await console.log('content-type:', res.headers['content-type']);
       await console.log('content-length:', res.headers['content-length']);
       await request(uri)
       .pipe(fs.createWriteStream(filename))
       .on('close', callback)
-    }   
+    }
   });
 };
 
